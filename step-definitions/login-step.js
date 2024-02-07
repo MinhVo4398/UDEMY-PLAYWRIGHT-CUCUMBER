@@ -1,12 +1,16 @@
 const { Given, When, Then, defineStep } = require('@cucumber/cucumber')
+const {LoginPage} = require ('../page-objects/login-page');
 
-Given("I visit a login page", async function() {
-    await page.goto("https://www.saucedemo.com/v1/index.html");
+const loginPage = new LoginPage();
+
+defineStep("I visit a login page", async function() {
+   await loginPage.navigateToLoginScreen();
 })
 
-When("I fill the login form with valid credentials", async function () {
-    await page.fill("#user-name","standard_user");
-    await page.fill("#password","secret_sauce");
-    await page.click("#login-button");
+defineStep("I fill the login form with valid credentials", async function () {
+   await loginPage.submitLoginForm();
+})
 
+defineStep("I should see the home page", async function() {
+  await loginPage.assertUserIsLoggedIn
 })
